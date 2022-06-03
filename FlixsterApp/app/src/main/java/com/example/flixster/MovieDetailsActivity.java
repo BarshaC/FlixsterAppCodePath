@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
 
@@ -20,6 +22,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     TextView tvTitle;
     TextView tvOverview;
     RatingBar rbVoteAverage;
+    ImageView ivPoster2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvOverview = (TextView) findViewById(R.id.tvOverview);
+        ivPoster2 = (ImageView) findViewById(R.id.ivPoster2);
         rbVoteAverage = (RatingBar) findViewById(R.id.rbVoteAverage);
         //retrieve, unwrap, assign field from onCreate
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
@@ -37,9 +41,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
         tvOverview.setText(movie.getOverview());
 
         //Set the RatingBar value by dividing Movie.getVoteAverage by 2.0
+        String imageUrl = movie.getPoster_path() ;
 
         float voteAverage = movie.getVoteAverage().floatValue();
         rbVoteAverage.setRating(voteAverage/2.0f);
+        Glide
+                .with(this)
+                .load(imageUrl)
+                .transform(new RoundedCorners(30))
+                .fitCenter()
+                .into(ivPoster2);
 
     }
 }
