@@ -2,8 +2,10 @@ package com.example.flixster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -51,6 +53,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 .transform(new RoundedCorners(30))
                 .fitCenter()
                 .into(ivPoster2);
+
+        ivPoster2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MovieDetailsActivity.this, MovieTrailerActivity.class);
+
+                i.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+                MovieDetailsActivity.this.startActivity(i);
+            }
+        });
 
     }
 }

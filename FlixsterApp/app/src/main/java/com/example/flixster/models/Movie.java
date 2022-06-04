@@ -14,9 +14,10 @@ public class Movie {
     String poster_path;
     String title;
     String overview;
-    public Movie() {}
     Double voteAverage;
+    int id;
 
+    public Movie() {}
 
     public Movie(JSONObject movie) throws JSONException {
         backdropPath = movie.getString("backdrop_path");
@@ -24,6 +25,7 @@ public class Movie {
         title = movie.getString("title");
         overview =movie.getString("overview");
         voteAverage = movie.getDouble("vote_average");
+        id = movie.getInt("id");
     }
     public static List<Movie> fromJSONArray(JSONArray movieJSONArray) throws JSONException {
         List <Movie> movies = new ArrayList<>();
@@ -38,7 +40,7 @@ public class Movie {
 
     }
     public String getBackdropPath() {
-        return String.format("https://image.tmdb.org/t/p/w342/%s",backdropPath);
+        return String.format("https://image.tmdb.org/t/p/w342/%s", backdropPath);
     }
 
     public String getTitle() {
@@ -51,5 +53,9 @@ public class Movie {
 
     public Double getVoteAverage() {
         return voteAverage;
+    }
+
+    public int getId() {
+        return id;
     }
 }
