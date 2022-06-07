@@ -22,8 +22,8 @@ import org.parceler.Parcels;
 import okhttp3.Headers;
 
 public class MovieTrailerActivity extends YouTubeBaseActivity {
+    private static final String TAG = "MovieTrailerActivity";
 
-    String TAG = "MovieTrailerActivity";
     Movie movie;
 
     @Override
@@ -60,7 +60,7 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
                                 @Override
                                 public void onInitializationFailure(YouTubePlayer.Provider provider,
                                         YouTubeInitializationResult youTubeInitializationResult) {
-                                    Log.e("MovieTrailerActivity", "Error initializing YouTube player");
+                                    Log.e(TAG, "Error initializing YouTube player");
                                 }
                             });
                 } catch (JSONException e) {

@@ -19,6 +19,8 @@ import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
 public class MovieDetailsActivity extends AppCompatActivity {
+    private static final String TAG = "MovieDetailsActivity";
+
     Movie movie;
     // view objects to present the single movie when the user clicks
     TextView tvTitle;
@@ -36,7 +38,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         rbVoteAverage = (RatingBar) findViewById(R.id.rbVoteAverage);
         // retrieve, unwrap, assign field from onCreate
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
-        Log.d("MovieDetailsActivity", String.format("Showing details for '%s'", movie.getTitle()));
+        Log.d(TAG, String.format("Showing details for '%s'", movie.getTitle()));
 
         // setting title and overview for the movie
         tvTitle.setText(movie.getTitle());
@@ -58,7 +60,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MovieDetailsActivity.this, MovieTrailerActivity.class);
-
                 i.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
                 MovieDetailsActivity.this.startActivity(i);
             }
