@@ -37,14 +37,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("MovieAdapter","onCreateViewHolder");
-        View movieView = LayoutInflater.from(context).inflate(R.layout.item_movie,parent, false);
+        Log.d("MovieAdapter", "onCreateViewHolder");
+        View movieView = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
         return new ViewHolder(movieView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d("MovieAdapter","onBindHolder" + position);
+        Log.d("MovieAdapter", "onBindHolder" + position);
         Movie movie = movies.get(position);
         holder.bind(movie);
 
@@ -55,32 +55,30 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         return movies.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-         TextView tvTitle;
-         TextView tvOverview;
-         ImageView ivPoster;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView tvTitle;
+        TextView tvOverview;
+        ImageView ivPoster;
 
-         public ViewHolder(@NotNull View itemView) {
-             super(itemView);
-             tvTitle = itemView.findViewById((R.id.tvTitle));
-             tvOverview = itemView.findViewById(R.id.tvOverview);
-             ivPoster = itemView.findViewById(R.id.ivPoster);
+        public ViewHolder(@NotNull View itemView) {
+            super(itemView);
+            tvTitle = itemView.findViewById((R.id.tvTitle));
+            tvOverview = itemView.findViewById(R.id.tvOverview);
+            ivPoster = itemView.findViewById(R.id.ivPoster);
 
-             //In ViewHolder constructor-call itemView.setOnclickListener(this)
-             itemView.setOnClickListener(this);
-
-
-         }
+            // In ViewHolder constructor-call itemView.setOnclickListener(this)
+            itemView.setOnClickListener(this);
+        }
 
         public void bind(Movie movie) {
-             tvTitle.setText(movie.getTitle());
-             tvOverview.setText(movie.getOverview());
-             String imageUrl;
-             if (context.getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE) {
-                 imageUrl = movie.getBackdropPath();
-             }else{
-                 imageUrl = movie.getPoster_path();
-             }
+            tvTitle.setText(movie.getTitle());
+            tvOverview.setText(movie.getOverview());
+            String imageUrl;
+            if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                imageUrl = movie.getBackdropPath();
+            } else {
+                imageUrl = movie.getPoster_path();
+            }
             Glide
                     .with(context)
                     .load(imageUrl)
@@ -92,24 +90,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
         @Override
         public void onClick(View v) {
-            //get position and ensure it's valid
+            // get position and ensure it's valid
             int position = getAdapterPosition();
-
-
             if (position != RecyclerView.NO_POSITION) {
-                //Get movie at that position in the list
+                // Get movie at that position in the list
                 Movie movie = movies.get(position);
-                //Create intent to display MovieDetailsActivity
-                Intent intent  = new Intent(context, MovieDetailsActivity.class);
+                // Create intent to display MovieDetailsActivity
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
 
-                //pass the movie as an extra serialized via Parcels.wrap()
+                // pass the movie as an extra serialized via Parcels.wrap()
                 intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
 
-                //Display activity
+                // Display activity
                 context.startActivity(intent);
             }
-
-
         }
     }
 }

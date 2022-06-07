@@ -20,7 +20,7 @@ import org.w3c.dom.Text;
 
 public class MovieDetailsActivity extends AppCompatActivity {
     Movie movie;
-    //view objects to present the single movie when the user clicks
+    // view objects to present the single movie when the user clicks
     TextView tvTitle;
     TextView tvOverview;
     RatingBar rbVoteAverage;
@@ -34,19 +34,19 @@ public class MovieDetailsActivity extends AppCompatActivity {
         tvOverview = (TextView) findViewById(R.id.tvOverview);
         ivPoster2 = (ImageView) findViewById(R.id.ivPoster2);
         rbVoteAverage = (RatingBar) findViewById(R.id.rbVoteAverage);
-        //retrieve, unwrap, assign field from onCreate
+        // retrieve, unwrap, assign field from onCreate
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
-        Log.d("MovieDetailsActivity", String.format("Showing details for '%s'",movie.getTitle()));
+        Log.d("MovieDetailsActivity", String.format("Showing details for '%s'", movie.getTitle()));
 
-        //setting title and overview for the movie
+        // setting title and overview for the movie
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
 
-        //Set the RatingBar value by dividing Movie.getVoteAverage by 2.0
-        String imageUrl = movie.getPoster_path() ;
+        // Set the RatingBar value by dividing Movie.getVoteAverage by 2.0
+        String imageUrl = movie.getPoster_path();
 
         float voteAverage = movie.getVoteAverage().floatValue();
-        rbVoteAverage.setRating(voteAverage/2.0f);
+        rbVoteAverage.setRating(voteAverage / 2.0f);
         Glide
                 .with(this)
                 .load(imageUrl)

@@ -34,8 +34,8 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
 
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
 
-        String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/" + movie.getId() + "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
-
+        String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/" + movie.getId()
+                + "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
         YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.player);
 
@@ -49,18 +49,20 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
                     JSONArray results = jsonObject.getJSONArray("results");
                     String youtubeKey = results.getJSONObject(0).getString("key");
 
-                    playerView.initialize(getString(R.string.youtube_api_key), new YouTubePlayer.OnInitializedListener() {
-                        @Override
-                        public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                            youTubePlayer.cueVideo(youtubeKey);
-                        }
+                    playerView.initialize(getString(R.string.youtube_api_key),
+                            new YouTubePlayer.OnInitializedListener() {
+                                @Override
+                                public void onInitializationSuccess(YouTubePlayer.Provider provider,
+                                        YouTubePlayer youTubePlayer, boolean b) {
+                                    youTubePlayer.cueVideo(youtubeKey);
+                                }
 
-                        @Override
-                        public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                            Log.e("MovieTrailerActivity", "Error initializing YouTube player");
-                        }
-                    });
-
+                                @Override
+                                public void onInitializationFailure(YouTubePlayer.Provider provider,
+                                        YouTubeInitializationResult youTubeInitializationResult) {
+                                    Log.e("MovieTrailerActivity", "Error initializing YouTube player");
+                                }
+                            });
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e(TAG, "Hit jason exception");
@@ -72,17 +74,5 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
                 Log.d(TAG, "onFailure");
             }
         });
-
-/*        playerView.initialize(getString(R.string.youtube_api_key), new YouTubePlayer.OnInitializedListener() {
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.cueVideo(videoId);
-            }
-
-            @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                Log.e("MovieTrailerActivity", "Error initializing YouTube player");
-            }
-        });*/
     }
 }
