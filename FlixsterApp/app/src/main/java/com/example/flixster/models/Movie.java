@@ -37,7 +37,7 @@ public class Movie {
         return movies;
     }
 
-    public String getPoster_path() {
+    public String getPosterPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", poster_path);
 
     }

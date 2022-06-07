@@ -30,17 +30,14 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_trailer);
-        final String videoId = "tKodtNFpzBA";
-
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
 
-        String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/" + movie.getId()
+        String nowPlayingUrl = "https://api.themoviedb.org/3/movie/" + movie.getId()
                 + "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
-
         YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.player);
 
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
+        client.get(nowPlayingUrl, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.d(TAG, "onSuccess");

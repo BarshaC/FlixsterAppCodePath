@@ -26,7 +26,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     TextView tvTitle;
     TextView tvOverview;
     RatingBar rbVoteAverage;
-    ImageView ivPoster2;
+    ImageView ivPoster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvOverview = (TextView) findViewById(R.id.tvOverview);
-        ivPoster2 = (ImageView) findViewById(R.id.ivPoster2);
+        ivPoster = (ImageView) findViewById(R.id.ivPoster);
         rbVoteAverage = (RatingBar) findViewById(R.id.rbVoteAverage);
         // retrieve, unwrap, assign field from onCreate
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
@@ -54,9 +54,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 .load(imageUrl)
                 .transform(new RoundedCorners(30))
                 .fitCenter()
-                .into(ivPoster2);
+                .into(ivPoster);
 
-        ivPoster2.setOnClickListener(new View.OnClickListener() {
+        ivPoster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MovieDetailsActivity.this, MovieTrailerActivity.class);
