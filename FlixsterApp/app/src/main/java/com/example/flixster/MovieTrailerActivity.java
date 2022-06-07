@@ -48,7 +48,6 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     String youtubeKey = results.getJSONObject(0).getString("key");
-
                     playerView.initialize(getString(R.string.youtube_api_key),
                             new YouTubePlayer.OnInitializedListener() {
                                 @Override
@@ -60,12 +59,13 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
                                 @Override
                                 public void onInitializationFailure(YouTubePlayer.Provider provider,
                                         YouTubeInitializationResult youTubeInitializationResult) {
-                                    Log.e(TAG, "Error initializing YouTube player");
+                                    Log.e(TAG, "Error initializing YouTube player " +
+                                            youTubeInitializationResult.toString());
                                 }
                             });
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.e(TAG, "Hit jason exception");
+                    Log.e(TAG, "Hit json exception", e);
                 }
             }
 

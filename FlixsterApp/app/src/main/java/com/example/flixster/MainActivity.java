@@ -50,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = json.jsonObject;
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "Results: " + results.toString());
+                    Log.d(TAG, "Results: " + results.toString());
                     movies.addAll(Movie.fromJSONArray(results));
                     movieAdapter.notifyDataSetChanged();
-                    Log.i(TAG, "Movies " + movies.size());
+                    Log.d(TAG, "Movies " + movies.size());
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.e(TAG, "Hit jason exception");
+                    Log.e(TAG, "Hit json exception", e);
                 }
             }
 
