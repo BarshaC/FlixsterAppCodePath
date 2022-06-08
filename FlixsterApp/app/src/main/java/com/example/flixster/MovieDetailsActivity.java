@@ -21,7 +21,7 @@ import org.w3c.dom.Text;
 public class MovieDetailsActivity extends AppCompatActivity {
     private static final String TAG = "MovieDetailsActivity";
     Movie movie;
-    //view objects to present the single movie when the user clicks
+    // view objects to present the single movie when the user clicks
     TextView tvTitle;
     TextView tvOverview;
     RatingBar rbVoteAverage;
@@ -31,21 +31,20 @@ public class MovieDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
-        tvTitle = findViewById(R.id.tvTitle);
-        tvOverview = findViewById(R.id.tvOverview);
-        ivPoster = findViewById(R.id.ivPoster);
-        rbVoteAverage = findViewById(R.id.rbVoteAverage);
-        //retrieve, unwrap, assign field from onCreat
-        movie = Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
-        Log.d(TAG, String.format("Showing details for '%s'",movie.getTitle()));
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvOverview = (TextView) findViewById(R.id.tvOverview);
+        ivPoster = (ImageView) findViewById(R.id.ivPoster);
+        rbVoteAverage = (RatingBar) findViewById(R.id.rbVoteAverage);
+        // retrieve, unwrap, assign field from onCreate
+        movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
+        Log.d(TAG, String.format("Showing details for '%s'", movie.getTitle()));
 
-        //setting title and overview for the movie
+        // setting title and overview for the movie
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
 
         //Set the RatingBar value by dividing Movie.getVoteAverage by 2.0
-        String imageUrl = movie.getPosterPath() ;
-
+        String imageUrl = movie.getPosterPath();
         float voteAverage = movie.getVoteAverage().floatValue();
         rbVoteAverage.setRating(voteAverage / 2.0f);
         Glide
@@ -59,7 +58,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MovieDetailsActivity.this, MovieTrailerActivity.class);
-
                 i.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
                 MovieDetailsActivity.this.startActivity(i);
             }

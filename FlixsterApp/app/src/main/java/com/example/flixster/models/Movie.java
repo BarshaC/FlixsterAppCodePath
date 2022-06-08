@@ -17,27 +17,31 @@ public class Movie {
     Double voteAverage;
     int id;
 
-    public Movie() {}
+    public Movie() {
+    }
 
     public Movie(JSONObject movie) throws JSONException {
         backdropPath = movie.getString("backdrop_path");
         poster_path = movie.getString("poster_path");
         title = movie.getString("title");
-        overview =movie.getString("overview");
+        overview = movie.getString("overview");
         voteAverage = movie.getDouble("vote_average");
         id = movie.getInt("id");
     }
+
     public static List<Movie> fromJSONArray(JSONArray movieJSONArray) throws JSONException {
-        List <Movie> movies = new ArrayList<>();
-        for (int i = 0; i < movieJSONArray.length(); i++){
+        List<Movie> movies = new ArrayList<>();
+        for (int i = 0; i < movieJSONArray.length(); i++) {
             movies.add(new Movie(movieJSONArray.getJSONObject(i)));
         }
         return movies;
     }
+
     public String getPosterPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", poster_path);
 
     }
+
     public String getBackdropPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", backdropPath);
     }

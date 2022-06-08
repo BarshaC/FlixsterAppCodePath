@@ -22,25 +22,19 @@ import org.parceler.Parcels;
 import okhttp3.Headers;
 
 public class MovieTrailerActivity extends YouTubeBaseActivity {
+    private static final String TAG = "MovieTrailerActivity";
 
-    String TAG = "MovieTrailerActivity";
     Movie movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_trailer);
-        final String videoId = "tKodtNFpzBA";
+        movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
 
-        movie = Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
-
-        String nowPlayingUrl = "https://api.themoviedb.org/3/movie/" +
-                movie.getId()
+        String nowPlayingUrl = "https://api.themoviedb.org/3/movie/" + movie.getId()
                 + "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
-
-
-
-        YouTubePlayerView playerView = findViewById(R.id.player);
+        YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.player);
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(nowPlayingUrl, new JsonHttpResponseHandler() {
@@ -51,25 +45,24 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     String youtubeKey = results.getJSONObject(0).getString("key");
+                    playerView.initialize(getString(R.string.youtube_api_key),
+                            new YouTubePlayer.OnInitializedListener() {
+                                @Override
+                                public void onInitializationSuccess(YouTubePlayer.Provider provider,
+                                        YouTubePlayer youTubePlayer, boolean b) {
+                                    youTubePlayer.cueVideo(youtubeKey);
+                                }
 
-                    playerView.initialize(getString(R.string.youtube_api_key), new YouTubePlayer.OnInitializedListener() {
-                        @Override
-                        public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                            youTubePlayer.cueVideo(youtubeKey);
-                        }
-
-                        @Override
-
-                        public void
-                        onInitializationFailure(YouTubePlayer.Provider provider,
-                                                YouTubeInitializationResult youTubeInitializationResult) {
-                            Log.e(TAG, "Error initializing YouTube player " +
-                                    youTubeInitializationResult.toString());
-                        }
-                    });
+                                @Override
+                                public void onInitializationFailure(YouTubePlayer.Provider provider,
+                                        YouTubeInitializationResult youTubeInitializationResult) {
+                                    Log.e(TAG, "Error initializing YouTube player " +
+                                            youTubeInitializationResult.toString());
+                                }
+                            });
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.e(TAG, "Hit jason exception");
+                    Log.e(TAG, "Hit json exception", e);
                 }
             }
 
