@@ -20,7 +20,6 @@ import org.w3c.dom.Text;
 
 public class MovieDetailsActivity extends AppCompatActivity {
     private static final String TAG = "MovieDetailsActivity";
-
     Movie movie;
     // view objects to present the single movie when the user clicks
     TextView tvTitle;
@@ -44,9 +43,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
 
-        // Set the RatingBar value by dividing Movie.getVoteAverage by 2.0
-        String imageUrl = movie.getPoster_path();
-
+        //Set the RatingBar value by dividing Movie.getVoteAverage by 2.0
+        String imageUrl = movie.getPosterPath();
         float voteAverage = movie.getVoteAverage().floatValue();
         rbVoteAverage.setRating(voteAverage / 2.0f);
         Glide

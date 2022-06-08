@@ -27,7 +27,6 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
     private static final String TAG = "MovieAdapter";
-
     Context context;
     List<Movie> movies;
 
@@ -65,7 +64,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvTitle = itemView.findViewById((R.id.tvTitle));
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
-
             // In ViewHolder constructor-call itemView.setOnclickListener(this)
             itemView.setOnClickListener(this);
         }
@@ -97,10 +95,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 Movie movie = movies.get(position);
                 // Create intent to display MovieDetailsActivity
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
-
                 // pass the movie as an extra serialized via Parcels.wrap()
                 intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
-
                 // Display activity
                 context.startActivity(intent);
             }
