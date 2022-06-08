@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="Movie Title"
+        android:text="@string/movie_title"
         android:textAppearance="@android:style/TextAppearance.Large" />
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="TextView" />
+        android:text="@string/movie_overview" />
 
     <RatingBar
         android:id="@+id/rbVoteAverage"
@@ -41,7 +41,7 @@
         android:stepSize="0.5" />
 
     <ImageView
-        android:id="@+id/ivPoster2"
+        android:id="@+id/ivPoster"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tvOverview"
